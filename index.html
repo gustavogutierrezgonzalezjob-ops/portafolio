@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gustavo Gutiérrez González | Desarrollador PHP / Laravel</title>
+  <meta name="description" content="Portafolio de Gustavo Gutiérrez González, Desarrollador Full Stack PHP / Laravel. Sistemas web, plataformas educativas, integraciones de API e IA." />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --brand-1: #6366f1;
+      --brand-2: #8b5cf6;
+      --brand-3: #ec4899;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --surface: #f8fafc;
+      --grad: linear-gradient(135deg, var(--brand-1), var(--brand-2) 55%, var(--brand-3));
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+      overflow-x: hidden;
+    }
+    .text-grad {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn-grad {
+      background: var(--grad);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-grad:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 12px 24px rgba(99,102,241,.35); }
+    .btn-ghost {
+      border: 2px solid rgba(15,23,42,.12);
+      font-weight: 600;
+      color: var(--ink);
+      transition: all .2s ease;
+    }
+    .btn-ghost:hover { border-color: var(--brand-2); color: var(--brand-2); transform: translateY(-2px); }
+
+    /* Navbar */
+    .navbar { transition: background .3s ease, box-shadow .3s ease, backdrop-filter .3s ease; }
+    .navbar.scrolled {
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 6px 24px rgba(15,23,42,.06);
+    }
+    .navbar .nav-link { font-weight: 600; color: var(--ink); }
+    .navbar .nav-link:hover, .navbar .nav-link.active { color: var(--brand-2); }
+    .brand-dot {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--grad); display: inline-grid; place-items: center;
+      color: #fff; font-weight: 800;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 8rem 0 5rem;
+      background:
+        radial-gradient(600px 400px at 85% 10%, rgba(139,92,246,.16), transparent 60%),
+        radial-gradient(500px 400px at 5% 40%, rgba(99,102,241,.14), transparent 60%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .45rem 1rem; border-radius: 999px;
+      background: rgba(99,102,241,.10); color: var(--brand-1);
+      font-weight: 600; font-size: .875rem;
+    }
+    .avatar-ring {
+      width: 220px; height: 220px; border-radius: 50%;
+      background: var(--grad); padding: 6px;
+      display: grid; place-items: center;
+      animation: floaty 6s ease-in-out infinite;
+    }
+    .avatar-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: #fff; display: grid; place-items: center;
+      font-size: 4.5rem; font-weight: 800; color: var(--brand-2);
+    }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+
+    .section { padding: 5rem 0; }
+    .section-title { font-weight: 800; letter-spacing: -.02em; }
+    .eyebrow {
+      text-transform: uppercase; letter-spacing: .16em;
+      font-size: .78rem; font-weight: 700; color: var(--brand-2);
+    }
+
+    /* Skills */
+    .chip {
+      display: inline-block; padding: .45rem .9rem; margin: .25rem;
+      border-radius: 999px; font-size: .85rem; font-weight: 600;
+      background: var(--surface); color: var(--ink); border: 1px solid #e2e8f0;
+      transition: all .18s ease;
+    }
+    .chip:hover { background: var(--grad); color: #fff; border-color: transparent; transform: translateY(-2px); }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ""; position: absolute; left: .45rem; top: .35rem; bottom: .35rem;
+      width: 2px; background: linear-gradient(var(--brand-1), var(--brand-3));
+      border-radius: 2px;
+    }
+    .timeline-item { position: relative; padding-bottom: 2.25rem; }
+    .timeline-item::before {
+      content: ""; position: absolute; left: -1.68rem; top: .3rem;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #fff; border: 3px solid var(--brand-2);
+    }
+    .timeline-item .role { font-weight: 700; }
+    .timeline-item .meta { color: var(--muted); font-size: .9rem; font-weight: 500; }
+    .timeline-item ul { color: #334155; }
+
+    /* Project cards */
+    .project-card {
+      border: 1px solid #e9edf3;
+      border-radius: 20px;
+      background: #fff;
+      height: 100%;
+      overflow: hidden;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(15,23,42,.12);
+      border-color: transparent;
+    }
+    .project-top {
+      height: 8px; width: 100%;
+      background: var(--grad);
+    }
+    .project-icon {
+      width: 54px; height: 54px; border-radius: 14px;
+      display: grid; place-items: center; font-size: 1.5rem; color: #fff;
+      background: var(--grad);
+    }
+    .project-body { padding: 1.5rem; }
+    .project-card .tag {
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .04em; color: var(--brand-2);
+    }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.5rem;
+    }
+
+    /* Contact */
+    .contact-card {
+      border-radius: 28px; color: #fff; overflow: hidden;
+      background: linear-gradient(135deg, #1e1b4b, #4c1d95 55%, #831843);
+      position: relative;
+    }
+    .contact-card::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(400px 300px at 90% 10%, rgba(255,255,255,.16), transparent 60%);
+    }
+    .contact-card .inner { position: relative; z-index: 1; }
+    .contact-email {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: rgba(255,255,255,.12); color: #fff;
+      padding: .8rem 1.25rem; border-radius: 14px; font-weight: 600;
+      text-decoration: none; border: 1px solid rgba(255,255,255,.2);
+      transition: all .2s ease; word-break: break-all;
+    }
+    .contact-email:hover { background: rgba(255,255,255,.22); color: #fff; transform: translateY(-2px); }
+
+    footer { background: var(--surface); color: var(--muted); }
+
+    /* Reveal on scroll */
+    .reveal-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal-up.in { opacity: 1; transform: none; }
+
+    @media (max-width: 575.98px) {
+      .hero { padding-top: 6.5rem; }
+      .avatar-ring { width: 160px; height: 160px; }
+      .avatar-inner { font-size: 3.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#inicio">
+        <span class="brand-dot">G</span>
+        <span>Gustavo<span class="text-grad">Dev</span></span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre mí</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experiencia">Experiencia</a></li>
+          <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-grad btn-sm px-3 rounded-pill" href="mailto:gustavogutierrezgonzalezjob@gmail.com">
+              <i class="bi bi-envelope-fill me-1"></i>Contrátame
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="inicio">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7 text-center text-lg-start">
+          <span class="hero-badge mb-3"><i class="bi bi-geo-alt-fill"></i> Naucalpan, México · Disponible</span>
+          <h1 class="display-4 fw-bold mb-2">Hola, soy <span class="text-grad">Gustavo Gutiérrez</span></h1>
+          <h2 class="h4 fw-semibold text-secondary mb-3">Desarrollador Full Stack <span class="text-grad">PHP / Laravel</span></h2>
+          <p class="lead text-muted mb-4" style="max-width: 620px;">
+            Construyo sistemas web de principio a fin: requerimientos, backend, frontend, bases de datos, integración de APIs y despliegue en producción.
+            Especializado en Laravel, Angular y MySQL, con experiencia en IA, móviles y pasarelas de pago.
+          </p>
+          <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+            <a href="#proyectos" class="btn btn-grad px-4 py-2 rounded-pill">
+              <i class="bi bi-grid-1x2-fill me-1"></i> Ver proyectos
+            </a>
+            <a href="#contacto" class="btn btn-ghost px-4 py-2 rounded-pill">
+              <i class="bi bi-send-fill me-1"></i> Contactarme
+            </a>
+          </div>
+          <div class="d-flex gap-4 mt-4 justify-content-center justify-content-lg-start text-center">
+            <div><div class="fs-4 fw-bold text-grad">10+</div><div class="small text-muted">Años de experiencia</div></div>
+            <div><div class="fs-4 fw-bold text-grad">5,000+</div><div class="small text-muted">Usuarios atendidos</div></div>
+            <div><div class="fs-4 fw-bold text-grad">Full Stack</div><div class="small text-muted">Web y móvil</div></div>
+          </div>
+        </div>
+        <div class="col-lg-5 d-flex justify-content-center">
+          <div class="avatar-ring">
+            <div class="avatar-inner">GG</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SOBRE MI -->
+  <section class="section bg-light" id="sobre-mi">
+    <div class="container">
+      <div class="text-center mb-5 reveal-up">
+        <div class="eyebrow">Sobre mí</div>
+        <h2 class="section-title display-6">Perfil profesional</h2>
+      </div>
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-6 reveal-up">
+          <p class="text-secondary fs-6">
+            Desarrollador orientado principalmente a <strong>PHP y Laravel</strong>, con experiencia práctica en el desarrollo de
+            sistemas web de principio a fin: comprensión de requerimientos, diseño de soluciones, desarrollo backend y frontend,
+            integración de APIs, manejo de bases de datos y despliegue de aplicaciones.
+          </p>
+          <p class="text-secondary fs-6">
+            He desarrollado de forma autónoma sistemas institucionales, administrativos, comerciales y educativos, trabajando
+            principalmente con <strong>PHP, Laravel, Angular y MySQL</strong>. Cuento también con experiencia complementaria en
+            aplicaciones móviles con <strong>Flutter</strong> e integración de servicios de <strong>inteligencia artificial</strong> mediante APIs y n8n.
+          </p>
+          <p class="text-secondary fs-6 mb-0">
+            Actualmente fortalezco mis conocimientos en <strong>Laravel moderno, SQL/PostgreSQL y React</strong>, con especial enfoque
+            en buenas prácticas y estructura de aplicaciones.
+          </p>
+        </div>
+        <div class="col-lg-6 reveal-up">
+          <h6 class="fw-bold mb-3"><i class="bi bi-code-slash text-grad me-2"></i>Habilidades y tecnologías</h6>
+          <div id="skills"></div>
+          <div class="mt-4 p-4 rounded-4 border bg-white">
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-mortarboard-fill fs-3 text-grad"></i>
+              <div>
+                <div class="fw-bold">Matemáticas Aplicadas y Computación</div>
+                <div class="small text-muted">FES Acatlán · UNAM (2010 – 2014)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section class="section" id="experiencia">
+    <div class="container">
+      <div class="text-center mb-5 reveal-up">
+        <div class="eyebrow">Trayectoria</div>
+        <h2 class="section-title display-6">Experiencia laboral</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="timeline reveal-up">
+            <div class="timeline-item">
+              <div class="role">Desarrollador Full Stack</div>
+              <div class="meta"><i class="bi bi-building me-1"></i>Instituto GVA S. de R.L. de C.V. · Ciudad de México <span class="mx-1">•</span> Enero 2024 – Julio 2026</div>
+              <ul class="mt-2 mb-0">
+                <li>Plataforma e-learning web y móvil para <strong>+5,000 usuarios</strong> con streaming (Zoom/Vimeo) y WebSockets.</li>
+                <li>Funcionalidades de plataforma educativa con Laravel, Angular y MySQL.</li>
+                <li>Sistema conversacional con <strong>OpenAI API, n8n, RAG</strong> y base de datos vectorial.</li>
+                <li>Sistema de pedidos y ventas con enlaces, activación de servicios y <strong>Mercado Pago</strong>.</li>
+                <li>Integración de <strong>Dropbox API</strong>, control escolar y migración de sistemas a Laravel/Angular.</li>
+                <li>Despliegue y mantenimiento en VPS y plataformas Cloud.</li>
+              </ul>
+            </div>
+            <div class="timeline-item">
+              <div class="role">Desarrollador Full Stack</div>
+              <div class="meta"><i class="bi bi-building me-1"></i>Codelitia · Ciudad de México <span class="mx-1">•</span> Junio 2016 – Diciembre 2023</div>
+              <ul class="mt-2 mb-0">
+                <li>Sistemas web con PHP, Laravel, Angular y MySQL.</li>
+                <li>Sistema de <strong>Títulos Electrónicos</strong> con servicios web SOAP de la SEP (XML).</li>
+                <li>Módulo de <strong>descarga masiva de CFDIs</strong> vía SOAP del SAT.</li>
+                <li>Plataforma de <strong>Constancia de Situación Fiscal</strong> (lectura de PDF y códigos QR).</li>
+                <li>Integraciones mediante APIs REST y Webhooks; apps móviles con Flutter (Android/iOS).</li>
+                <li>E-commerce web y móvil con Mercado Pago y administración básica de servidores.</li>
+              </ul>
+            </div>
+            <div class="timeline-item pb-0">
+              <div class="role">Desarrollador Web</div>
+              <div class="meta"><i class="bi bi-building me-1"></i>V&amp;V Auditoría y Contabilidad, S.C. · Ciudad de México <span class="mx-1">•</span> Enero 2015 – Diciembre 2015</div>
+              <ul class="mt-2 mb-0">
+                <li>Plataforma de comercio electrónico desde cero con PHP, HTML, CSS y MySQL.</li>
+                <li>Funcionalidades backend y frontend de la plataforma.</li>
+                <li>Integración de la pasarela de pagos <strong>Stripe</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section class="section bg-light" id="proyectos">
+    <div class="container">
+      <div class="text-center mb-4 reveal-up">
+        <div class="eyebrow">Portafolio</div>
+        <h2 class="section-title display-6">Proyectos destacados</h2>
+        <p class="text-muted mb-0">Pasa el mouse sobre una tarjeta para ver un resumen o haz clic en <em>Ver detalles</em>.</p>
+      </div>
+      <div class="row g-4" id="projectsGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <div class="contact-card p-4 p-md-5 reveal-up">
+        <div class="inner row align-items-center g-4">
+          <div class="col-lg-7">
+            <h2 class="fw-bold mb-2">¿Trabajamos juntos?</h2>
+            <p class="mb-0 opacity-75" style="max-width: 520px;">
+              Estoy abierto a oportunidades como desarrollador Full Stack. Escríbeme y con gusto te comparto más
+              detalles sobre mis proyectos y experiencia.
+            </p>
+          </div>
+          <div class="col-lg-5 text-lg-end">
+            <a class="contact-email" href="mailto:gustavogutierrezgonzalezjob@gmail.com">
+              <i class="bi bi-envelope-fill fs-5"></i>
+              gustavogutierrezgonzalezjob@gmail.com
+            </a>
+            <div class="mt-3 small opacity-75">
+              <i class="bi bi-geo-alt-fill me-1"></i> Naucalpan, Estado de México
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <div class="small">© <span id="year"></span> Gustavo Gutiérrez González · Desarrollador PHP / Laravel</div>
+      <a href="mailto:gustavogutierrezgonzalezjob@gmail.com" class="small text-decoration-none text-muted">
+        <i class="bi bi-envelope me-1"></i> gustavogutierrezgonzalezjob@gmail.com
+      </a>
+    </div>
+  </footer>
+
+  <!-- MODAL DETALLES -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 rounded-4 overflow-hidden">
+        <div class="project-top"></div>
+        <div class="modal-header border-0">
+          <div class="d-flex align-items-center gap-3">
+            <div class="project-icon" id="modalIcon"><i class="bi bi-code-square"></i></div>
+            <div>
+              <h5 class="modal-title fw-bold mb-0" id="projectModalLabel">Proyecto</h5>
+              <div class="small text-muted" id="modalCategory">Categoría</div>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <p id="modalDescription" class="text-secondary"></p>
+          <h6 class="fw-bold mt-4 mb-2">Tecnologías</h6>
+          <div id="modalTags"></div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-ghost rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ---- Datos ----
+    const skills = ["PHP","Laravel","Angular","React","JavaScript","TypeScript","MySQL","PostgreSQL","SQL","Eloquent ORM",
+      "APIs REST","Webhooks","WebSockets","Docker (básico)","Bootstrap","HTML","CSS","Git","GitHub","Flutter",
+      "OpenAI API","Gemini API","n8n","RAG","Pinecone","Stripe","Mercado Pago","Dropbox API","AWS (S3, SES)",
+      "DigitalOcean","Postman"];
+
+    const projects = [
+      {
+        icon: "bi-mortarboard-fill", category: "Plataforma educativa",
+        title: "Plataforma E-Learning Web y Móvil",
+        short: "Plataforma de aprendizaje en línea para más de 5,000 usuarios con clases en vivo y streaming.",
+        details: "Desarrollo y mantenimiento de una plataforma de aprendizaje en línea, web y móvil, para más de 5,000 usuarios. Integración de servicios de streaming como Zoom y Vimeo, y comunicación en tiempo real mediante WebSockets. Gestión de cursos, usuarios, contenido y funcionalidades para una plataforma educativa con Laravel, Angular y MySQL.",
+        tags: ["Laravel","Angular","MySQL","WebSockets","Zoom","Vimeo","Flutter"]
+      },
+      {
+        icon: "bi-robot", category: "Inteligencia Artificial",
+        title: "Asistente Conversacional con IA",
+        short: "Chat que responde preguntas usando el contenido real de los cursos (RAG).",
+        details: "Sistema conversacional basado en la información de los cursos de la plataforma. Implementado con OpenAI API, flujos de automatización en n8n, arquitectura RAG (Retrieval-Augmented Generation) y base de datos vectorial Pinecone para ofrecer respuestas precisas y contextualizadas.",
+        tags: ["OpenAI API","n8n","RAG","Pinecone","Laravel"]
+      },
+      {
+        icon: "bi-cart-check-fill", category: "Comercial",
+        title: "Sistema de Pedidos y Ventas",
+        short: "Administración de pedidos con cobros en línea y activación de servicios.",
+        details: "Sistema para la administración de pedidos y ventas con generación de enlaces de pago, activación de servicios e integración con Mercado Pago. Integración de la API de Dropbox para el almacenamiento y gestión de comprobantes.",
+        tags: ["Laravel","Mercado Pago","Dropbox API","MySQL"]
+      },
+      {
+        icon: "bi-file-earmark-check-fill", category: "Institucional",
+        title: "Títulos Electrónicos (SEP)",
+        short: "Generación y validación de Títulos Electrónicos con servicios SOAP de la SEP.",
+        details: "Sistema para la generación y validación de Títulos Electrónicos, integrando los servicios web SOAP de la SEP bajo el estándar XML correspondiente, garantizando la validez oficial de los documentos emitidos.",
+        tags: ["PHP","SOAP","XML","MySQL"]
+      },
+      {
+        icon: "bi-file-earmark-arrow-down-fill", category: "Fiscal",
+        title: "Descarga Masiva de CFDIs (SAT)",
+        short: "Módulo de descarga masiva de CFDI mediante servicios web del SAT.",
+        details: "Módulo para la descarga masiva de CFDI (comprobantes fiscales digitales) mediante integración con los servicios web SOAP del SAT, optimizando la obtención y el procesamiento de grandes volúmenes de comprobantes.",
+        tags: ["PHP","SOAP","SAT","MySQL"]
+      },
+      {
+        icon: "bi-qr-code-scan", category: "Fiscal / Móvil",
+        title: "Constancia de Situación Fiscal (CSF)",
+        short: "Plataforma web y móvil que procesa la CSF leyendo PDF y códigos QR.",
+        details: "Plataforma web y móvil para el procesamiento de la información de la Constancia de Situación Fiscal (CSF) mediante lectura de archivos PDF y códigos QR, automatizando la extracción y validación de datos fiscales.",
+        tags: ["PHP","Laravel","PDF / QR","Flutter"]
+      },
+      {
+        icon: "bi-phone-fill", category: "Desarrollo móvil",
+        title: "Aplicaciones Móviles Multiplataforma",
+        short: "Apps complementarias para Android e iOS desarrolladas con Flutter.",
+        details: "Desarrollo de aplicaciones móviles complementarias utilizando Flutter, publicadas para Android e iOS, consumiendo servicios y APIs REST de las plataformas web asociadas.",
+        tags: ["Flutter","Dart","APIs REST","Android","iOS"]
+      },
+      {
+        icon: "bi-bag-heart-fill", category: "Comercio electrónico",
+        title: "Comercio Electrónico con Pasarelas de Pago",
+        short: "Plataformas de e-commerce web y móvil con Mercado Pago y Stripe.",
+        details: "Plataformas de comercio electrónico web y móvil con integración de pasarelas de pago. Desarrollo desde cero con PHP, HTML, CSS y MySQL, e integración con Stripe y Mercado Pago para el procesamiento seguro de transacciones.",
+        tags: ["PHP","Laravel","Stripe","Mercado Pago","MySQL"]
+      }
+    ];
+
+    // ---- Render skills ----
+    document.getElementById('skills').innerHTML =
+      skills.map(s => `<span class="chip">${s}</span>`).join('');
+
+    // ---- Render proyectos ----
+    const grid = document.getElementById('projectsGrid');
+    grid.innerHTML = projects.map((p, i) => `
+      <div class="col-md-6 col-lg-4 reveal-up">
+        <article class="project-card d-flex flex-column" data-index="${i}" tabindex="0" role="button" aria-label="Ver detalles de ${p.title}">
+          <div class="project-top"></div>
+          <div class="project-body d-flex flex-column h-100">
+            <div class="project-icon mb-3"><i class="bi ${p.icon}"></i></div>
+            <div class="tag mb-1">${p.category}</div>
+            <h5 class="fw-bold mb-2">${p.title}</h5>
+            <p class="text-muted small mb-0 line-clamp-2">${p.short}</p>
+            <div class="mt-auto pt-3 text-center">
+              <button class="btn btn-sm btn-grad rounded-pill px-4 details-btn" data-index="${i}">
+                Ver detalles <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    `).join('');
+
+    // ---- Modal ----
+    const modalEl = document.getElementById('projectModal');
+    const modal = new bootstrap.Modal(modalEl);
+    const modalIcon = document.getElementById('modalIcon');
+    const modalLabel = document.getElementById('projectModalLabel');
+    const modalCat = document.getElementById('modalCategory');
+    const modalDesc = document.getElementById('modalDescription');
+    const modalTags = document.getElementById('modalTags');
+
+    function openProject(i) {
+      const p = projects[i];
+      if (!p) return;
+      modalIcon.innerHTML = `<i class="bi ${p.icon}"></i>`;
+      modalLabel.textContent = p.title;
+      modalCat.textContent = p.category;
+      modalDesc.textContent = p.details;
+      modalTags.innerHTML = p.tags.map(t => `<span class="chip">${t}</span>`).join('');
+      modal.show();
+    }
+
+    grid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.details-btn');
+      if (btn) { e.stopPropagation(); openProject(+btn.dataset.index); return; }
+      const card = e.target.closest('.project-card');
+      if (card) openProject(+card.dataset.index);
+    });
+    grid.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const card = e.target.closest('.project-card');
+        if (card) { e.preventDefault(); openProject(+card.dataset.index); }
+      }
+    });
+
+    // ---- Navbar scroll ----
+    const nav = document.getElementById('mainNav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 30);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ---- Reveal on scroll ----
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal-up').forEach(el => io.observe(el));
+
+    // ---- Año footer ----
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
